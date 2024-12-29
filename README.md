@@ -27,9 +27,9 @@ vjcalling/speaker-recognition-audio-dataset on Kaggle, a dataset of 50 speakers
 
 ### 3. Evaluation
 - The model's performance is evaluated using metrics such as:
-  - **Accuracy**
-  - **F1-Score**
-  - **ROC-AUC**
+  - **Accuracy:** 0.9393
+  - **F1-score:** 0.9405
+  - **ROC-AUC:** 0.9748
 
 ### 4. Real-Time Prediction
 - The system allows real-time verification of incoming audio by comparing it with a reference audio sample.
