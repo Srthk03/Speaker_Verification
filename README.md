@@ -51,6 +51,7 @@ Develop a system that takes a reference audio recording of a target speaker and 
 - TensorFlow
 - PyTorch and Torchaudio
 - NumPy, h5py, scikit-learn
+- FastAPI, Uvicorn
 
 ### Steps
 1. Clone this repository:
