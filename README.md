@@ -57,7 +57,7 @@ vjcalling/speaker-recognition-audio-dataset on Kaggle, a dataset of 50 speakers
 ### Steps
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-repo/speaker-verification.git
+   git clone https://github.com/Srthk03/Speaker_Verification.git
    cd speaker-verification
    ```
 2. Install dependencies:
