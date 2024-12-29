@@ -73,7 +73,7 @@ vjcalling/speaker-recognition-audio-dataset on Kaggle, a dataset of 50 speakers
    
 5. Run the web application:
    ```bash
-   streamlit run app.py
+   python3 app.py
    ```
 
 ---
