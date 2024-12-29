@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .upload-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+        .error {
+            color: #ff0000;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fee;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Voice Comparison</h1>
+        
+        <div class="upload-section">
+            <h2>Reference Voice</h2>
+            <input type="file" id="reference-file" accept="audio/*" />
+            <div class="error" id="reference-error"></div>
+            <audio id="reference-audio" controls style="display: none;"></audio>
+        </div>
+
+        <div class="upload-section">
+            <h2>Sample Voice</h2>
+            <input type="file" id="sample-file" accept="audio/*" />
+            <div class="error" id="sample-error"></div>
+            <audio id="sample-audio" controls style="display: none;"></audio>
+        </div>
+
+        <button class="button" onclick="compareVoices()">Compare Voices</button>
+
+        <div class="result" id="result">
+            <h2>Result</h2>
+            <p id="result-text"></p>
+        </div>
+    </div>
+
+    <script>
+        function handleFileSelect(fileInput, audioId, errorId) {
+            const file = fileInput.files[0];
+            if (file) {
+                const audio = document.getElementById(audioId);
+                audio.src = URL.createObjectURL(file);
+                audio.style.display = 'block';
+                document.getElementById(errorId).textContent = '';
+            }
+        }
+
+        // Add listeners for file inputs
+        document.getElementById('reference-file').addEventListener('change', function() {
+            handleFileSelect(this, 'reference-audio', 'reference-error');
+        });
+
+        document.getElementById('sample-file').addEventListener('change', function() {
+            handleFileSelect(this, 'sample-audio', 'sample-error');
+        });
+
+        async function compareVoices() {
+            const referenceFile = document.getElementById('reference-file').files[0];
+            const sampleFile = document.getElementById('sample-file').files[0];
+
+            if (!referenceFile || !sampleFile) {
+                alert('Please select both reference and sample audio files');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('reference', referenceFile);
+            formData.append('sample', sampleFile);
+
+            try {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result-text').textContent = 'Comparing voices...';
+
+                const response = await fetch('/compare', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('result-text').textContent = 
+                        `${data.result} (Confidence: ${data.probability})`;
+                    document.getElementById('result').style.backgroundColor = 
+                        data.result === 'Same person' ? '#dff0d8' : '#f2dede';
+                } else {
+                    document.getElementById('result-text').textContent = 
+                        'Error: ' + (data.error || 'Unknown error occurred');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result-text').textContent = 
+                    'Error comparing voices: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
