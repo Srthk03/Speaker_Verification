@@ -85,7 +85,6 @@ The system includes a web application where users can:
 - View the classification results (Target-Target or Target-Non-Target) and confidence score.
 
 ### Screenshots
-(Placeholder for screenshots)
 1. **Home Page**:
    - <img width="1440" alt="Screenshot 2024-12-29 at 6 33 13 PM" src="https://github.com/user-attachments/assets/cd00cebf-d354-464e-8fa7-8ab6f5033213" />
 
