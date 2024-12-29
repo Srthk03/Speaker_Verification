@@ -12,7 +12,8 @@ Develop a system that takes a reference audio recording of a target speaker and 
 4. Submit code and briefly describe the approach.
 
 ---
-
+### Dataset Used
+vjcalling/speaker-recognition-audio-dataset on Kaggle, a dataset of 50 speakers
 ## Approach
 
 ### 1. Audio Preprocessing
